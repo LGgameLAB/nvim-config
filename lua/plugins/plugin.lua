@@ -57,10 +57,13 @@ return
 		build = ":TSUpdate",
 		config = function()
 		require("nvim-treesitter.configs").setup({
-			ensure_installed = { "lua", "python", "c", "cpp", "vim", "bash" }, -- Add languages you use
+			ensure_installed = { "lua", "python", "c", "cpp", "vim", "bash", "glsl"}, -- Add languages you use
 			highlight = { enable = true },
 			indent = { enable = true },
 		})
 		end,
+	},
+	{
+		"williamboman/mason.nvim"
 	}
 }
