@@ -5,6 +5,16 @@ require('config.keymaps')
 -- Options
 vim.opt.relativenumber = true
 vim.opt.autochdir = true
+vim.o.wrap = false
+vim.filetype.add({
+    extension = {
+        vert = "glsl",
+        frag = "glsl",
+        geom = "glsl",
+        glsl = "glsl",
+    }
+})
+
 -- vim.cmd([[Neotree]])
 
 vim.api.nvim_create_autocmd("VimEnter", {
