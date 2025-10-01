@@ -18,14 +18,6 @@ return
 		-- 	---@type ibl.config
 		-- 	opts = {},
 		-- },
-		-- {
-		-- 	"iagorrr/noctishc.nvim",
-		-- 	priority = 1000,
-		-- 	config = function()
-		-- 		vim.cmd([[colorscheme noctishc]])
-		-- 	end,
-		-- 	opts = ...
-		-- },
 		{
 			"nvim-neo-tree/neo-tree.nvim",
 			branch = "v3.x",
@@ -86,8 +78,8 @@ return
 				local lspconfig = require("lspconfig")
 				local cmp_nvim_lsp = require("cmp_nvim_lsp")
 				-- Get uv virtual environment path
-				-- local uv_venv = vim.fn.system("uv venv"):gsub("\n", "")
-				local python_path = vim.fn.system("which python"):gsub("\n", "")
+				-- local uv_venv = vim.fn.system("uv venv"):gsub("\\n", "")
+				local python_path = vim.fn.system("which python"):gsub("\\n", "")
 				-- Enable LSP-based autocompletion
 				local capabilities = cmp_nvim_lsp.default_capabilities()
 				-- Setup Pyright
@@ -149,5 +141,64 @@ return
 				require("lualine").setup()
 			end,
 
-		}
+		},
+        {
+              "goolord/alpha-nvim",
+            dependencies = { "nvim-tree/nvim-web-devicons" }, -- optional icons
+            config = function()
+              -- local startify = require("alpha.themes.startify")
+              local alpha = require("alpha")
+              local dashboard = require("alpha.themes.dashboard")
+
+              -- Header
+              dashboard.section.header.val = {
+              " ██████╗ ███████╗████████╗     ██████╗ ██████╗ ██████╗ ██╗███╗   ██╗ ██████╗     ██████╗ ██╗████████╗ ██████╗██╗  ██╗",
+              "██╔════╝ ██╔════╝╚══██╔══╝    ██╔════╝██╔═══██╗██╔══██╗██║████╗  ██║██╔════╝     ██╔══██╗██║╚══██╔══╝██╔════╝██║  ██║",
+              "██║  ███╗█████╗     ██║       ██║     ██║   ██║██║  ██║██║██╔██╗ ██║██║  ███╗    ██████╔╝██║   ██║   ██║     ███████║",
+              "██║   ██║██╔══╝     ██║       ██║     ██║   ██║██║  ██║██║██║╚██╗██║██║   ██║    ██╔══██╗██║   ██║   ██║     ██╔══██║",
+              "╚██████╔╝███████╗   ██║       ╚██████╗╚██████╔╝██████╔╝██║██║ ╚████║╚██████╔╝    ██████╔╝██║   ██║   ╚██████╗██║  ██║",
+              " ╚═════╝ ╚══════╝   ╚═╝        ╚═════╝ ╚═════╝ ╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝     ╚═════╝ ╚═╝   ╚═╝    ╚═════╝╚═╝  ╚═╝"
+
+              }
+
+              -- Menu buttons
+              dashboard.section.buttons.val = {
+                dashboard.button("f", "󰍉  Find file", ":Telescope find_files<CR>"),
+                dashboard.button("r", "󱋡  Recent files", ":Telescope oldfiles<CR>"),
+                dashboard.button("d", "󰉋  Open Folder", ":Telescope fd find_command=fd,-t=d"), --Telescope file_browser<CR>"),
+                dashboard.button("p", "󰏖  Projects", ":Telescope projects<CR>"),
+                dashboard.button("n", "  New file", ":ene <BAR> startinsert<CR>"),
+                dashboard.button("q", "󰩈  Quit NVIM", ":qa<CR>"),
+              }
+
+              -- Footer
+              dashboard.section.footer.val = "Welcome to Neovim, Luke!"
+              for _, el in pairs(dashboard.section.buttons.val) do
+                  el.opts.position = "left"
+                  -- el.opts.width = 50 -- Set a width for centering
+              end
+              dashboard.opts.position = "left"
+
+              alpha.setup(dashboard.opts)
+              -- alpha.setup(startify.config)
+          end,
+        },
+        {
+            "nvim-telescope/telescope.nvim",
+            dependencies = { 'nvim-lua/plenary.nvim'},
+
+        },
+        {
+            "nvim-telescope/telescope-file-browser.nvim",
+            dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+        },
+        {
+          "ibhagwan/fzf-lua",
+          -- optional for icon support
+          dependencies = { "nvim-tree/nvim-web-devicons" },
+          -- or if using mini.icons/mini.nvim
+          -- dependencies = { "nvim-mini/mini.icons" },
+          opts = {}
+        }
+
 	}
