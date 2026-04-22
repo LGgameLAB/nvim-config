@@ -92,6 +92,7 @@ return
 				local capabilities = cmp_nvim_lsp.default_capabilities()
 				-- Setup Pyright
 				lspconfig.pyright.setup({
+                    capabilities = capabilities,
 					settings = {
 						python = {
 							pythonPath = python_path,
@@ -270,6 +271,35 @@ return
               }
         end
 
+        },
+        {
+            'hiphish/rainbow-delimiters.nvim',
+            ft = { "scheme", "lisp", "racket" },
+            config = function()
+                local rb = require('rainbow-delimiters')
+                require('rainbow-delimiters.setup').setup({
+                    strategy = {
+                        [''] = nil, --rb.strategy['global'],
+                        -- commonlisp = rb.strategy['local'], -- Example for specific tuning
+                        -- Only enable for Lisp like languages
+                        scheme = rb.strategy['global'],
+                        lisp = rb.strategy['global'],
+                        racket = rb.strategy['global'],
+                    },
+                    query = {
+                        [''] = 'rainbow-delimiters',
+                    },
+                    highlight = {
+                        'RainbowDelimiterRed',
+                        'RainbowDelimiterYellow',
+                        'RainbowDelimiterBlue',
+                        'RainbowDelimiterOrange',
+                        'RainbowDelimiterGreen',
+                        'RainbowDelimiterViolet',
+                        'RainbowDelimiterCyan',
+                    },
+                })
+            end
         }
 
-	}
+}
